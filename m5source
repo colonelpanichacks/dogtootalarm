@@ -1,0 +1,33 @@
+from m5stack import *
+from m5ui import *
+from uiflow import *
+import unit
+
+
+setScreenColor(0x111111)
+tvoc_0 = unit.get(unit.TVOC, unit.PORTA)
+
+
+VoC = None
+
+
+
+label0 = M5TextBox(95, 33, "Toot!", lcd.FONT_DejaVu72, 0xffffff, rotate=90)
+
+
+
+
+label0.hide()
+axp.setLcdBrightness(0)
+while True:
+  VoC = tvoc_0.TVOC
+  if VoC > 100:
+    M5Led.on()
+    axp.setLcdBrightness(35)
+    setScreenColor(0xff0000)
+    label0.show()
+  elif VoC < 100:
+    M5Led.off()
+    axp.setLcdBrightness(0)
+    label0.hide()
+  wait_ms(2)
